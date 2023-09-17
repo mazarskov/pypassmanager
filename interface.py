@@ -34,15 +34,16 @@ def encrypt_button_event():
     global count
     user_input = entry.get()
     aes_key = entry_key.get()
+    if (len(user_input) == 0 or len(aes_key) == 0):
+        print("No password or AES key inputted")
+        return 0
     user_input_bytes = bytes(user_input, encoding='utf-8')
     aes_key_bytes = bytes(aes_key, encoding='utf-8')
     result = Encryptor_AES(user_input_bytes, aes_key_bytes)
-    username = entry3.get()
-    website = entry4.get()
-    print(result)
+    username = username_entry.get()
+    website = website_entry.get()    
+    
     f = open('Passowrds.txt', 'a')
-    #f.write(str(count))
-    #f.write('\n')
     f.write("--------------------------------")
     f.write('\n')
     f.write("Website: " + website)
@@ -52,12 +53,12 @@ def encrypt_button_event():
     f.write(result)
     f.write('\n')
     f.write("--------------------------------")
+    f.write('\n')
     f.close()
-    #count = count + 1
-    #print(count)
+    
     entry.delete(0, 'end')
-    entry4.delete(0, 'end')
-    entry3.delete(0, 'end')
+    username_entry.delete(0, 'end')
+    website_entry.delete(0, 'end')
 encrypt_button = customtkinter.CTkButton(app, text="Encrypt", command=encrypt_button_event)
 encrypt_button.place(relx=0.5, rely=0.45, anchor=customtkinter.CENTER)
     
@@ -88,6 +89,9 @@ copy_key_button.place(relx=0.1, rely=0.8, anchor=customtkinter.CENTER)
 
 #fucntion of a button that decrypts using an encrypted text and a proper AES key
 def decrypt_button_event():
+    if (len(entry_encrypted.get()) == 0 or len(entry_key.get()) == 0):
+        print("No encrypted text or AES key inputted")
+        return 0
     result = Decryptor(entry_encrypted.get(), entry_key.get())
     print(result)
 decrypt_button = customtkinter.CTkButton(app, text="Decrypt", command=decrypt_button_event)
@@ -103,15 +107,15 @@ entry_key.place(relx = 0.5, rely = 0.3, anchor=customtkinter.CENTER)
 entry = customtkinter.CTkEntry(app, placeholder_text="Password")
 entry.place(relx = 0.5, rely = 0.2, anchor=customtkinter.CENTER)
 
+
 #entry to input username
-entry3 = customtkinter.CTkEntry(app, placeholder_text="Username")
-entry3.place(relx = 0.3, rely = 0.2, anchor=customtkinter.CENTER)
+username_entry = customtkinter.CTkEntry(app, placeholder_text="Username")
+username_entry.place(relx = 0.3, rely = 0.2, anchor=customtkinter.CENTER)
+
 
 #entry to put website
-entry4 = customtkinter.CTkEntry(app, placeholder_text="Website")
-entry4.place(relx = 0.7, rely = 0.2, anchor=customtkinter.CENTER)
-
-
+website_entry = customtkinter.CTkEntry(app, placeholder_text="Website")
+website_entry.place(relx = 0.7, rely = 0.2, anchor=customtkinter.CENTER)
 
 
 #entry to input encrypted text
@@ -119,8 +123,10 @@ entry_encrypted = customtkinter.CTkEntry(app, placeholder_text="Encrypted text",
 entry_encrypted.place(relx = 0.5, rely = 0.8, anchor=customtkinter.CENTER)
 
 
+#app name text
+app_name = customtkinter.CTkLabel(app, text="Password Manager (Early build)", fg_color="transparent", font=('Arial', 25))
+app_name.place(relx = 0.5, rely = 0.05, anchor=customtkinter.CENTER)
 
-label = customtkinter.CTkLabel(app, text="Password Manager (Early build)", fg_color="transparent", font=('Arial', 25))
-label.place(relx = 0.5, rely = 0.05, anchor=customtkinter.CENTER)
+
 
 app.mainloop()
