@@ -40,7 +40,7 @@ def encrypt_button_event():
     username = entry3.get()
     website = entry4.get()
     print(result)
-    f = open('readme.txt', 'a')
+    f = open('Passowrds.txt', 'a')
     #f.write(str(count))
     #f.write('\n')
     f.write("--------------------------------")
