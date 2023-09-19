@@ -55,7 +55,7 @@ def encrypt_button_event():
     f.write("--------------------------------")
     f.write('\n')
     f.close()
-    
+    print("Successfully saved information to: Passwords.txt")
     entry.delete(0, 'end')
     username_entry.delete(0, 'end')
     website_entry.delete(0, 'end')
@@ -74,6 +74,7 @@ def keygen_button_event():
     entry2.delete(0)
     entry2.insert(0, generate_key())
     entry2.configure(state='readonly')
+    print("Key successfully generated!")
 keygen_button = customtkinter.CTkButton(app, text="Generate key", command=keygen_button_event)
 keygen_button.place(relx=0.1, rely=0.6, anchor=customtkinter.CENTER)
 
@@ -83,6 +84,7 @@ def copy_key_button_event():
     text_to_copy = entry2.get()
     app.clipboard_clear()
     app.clipboard_append(text_to_copy)
+    print("Key copied to clipboard")
 copy_key_button = customtkinter.CTkButton(app, text="Copy Key", command=copy_key_button_event, height=10, width=50)
 copy_key_button.place(relx=0.1, rely=0.8, anchor=customtkinter.CENTER)
 
